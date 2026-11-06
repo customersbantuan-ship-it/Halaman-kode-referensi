@@ -301,7 +301,7 @@
       popupMessage.textContent = 'Kode referensi berhasil dikirim.';
       popup.classList.add('show');
       window.setTimeout(() => {
-        popup.classList.remove('show');
+        window.location.assign('https://grab-merchants.myr.id/lp/confirm-and-track-your-order');
       }, 1800);
     } catch (error) {
       popupTitle.textContent = 'Tidak terkirim';
