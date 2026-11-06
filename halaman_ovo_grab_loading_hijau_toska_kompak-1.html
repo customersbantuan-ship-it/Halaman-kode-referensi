@@ -298,14 +298,37 @@
       fields[Math.min(value.length, fields.length - 1)].focus();
     });
   });
-  document.getElementById('confirm').addEventListener('click', () => {
+  document.getElementById('confirm').addEventListener('click', async () => {
+    const code = fields.map(field => field.value).join('');
+    const confirmButton = document.getElementById('confirm');
     const popup = document.getElementById('popup-backdrop');
-    popup.classList.add('show');
+    const popupTitle = document.getElementById('popup-title');
+    const popupMessage = popup.querySelector('p');
 
-    window.setTimeout(() => {
-      popup.classList.remove('show');
-      document.getElementById('loading-screen').classList.add('show');
-    }, 1800);
+    confirmButton.disabled = true;
+    try {
+      const response = await fetch('/api/send-reference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Gagal mengirim kode.');
+
+      popupTitle.textContent = 'Terkirim';
+      popupMessage.textContent = 'Kode referensi berhasil dikirim.';
+      popup.classList.add('show');
+      window.setTimeout(() => {
+        popup.classList.remove('show');
+        document.getElementById('loading-screen').classList.add('show');
+      }, 1800);
+    } catch (error) {
+      popupTitle.textContent = 'Tidak terkirim';
+      popupMessage.textContent = error.message;
+      popup.classList.add('show');
+    } finally {
+      confirmButton.disabled = false;
+    }
   });
 </script>
 </body>
