@@ -108,6 +108,7 @@
     padding: 24px; background: rgba(20,25,30,.36);
   }
   .popup-backdrop.show { display: flex; }
+  .loading-screen { display: none !important; }
   .popup {
     width: min(100%, 340px); padding: 28px 22px 24px;
     border-radius: 18px; background: #fff; text-align: center;
@@ -123,23 +124,6 @@
   @keyframes popupIn {
     from { opacity: 0; transform: translateY(8px) scale(.97); }
     to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .loading-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 30;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-  }
-  .loading-screen.show { display: flex; }
-  .loading-animation {
-    display: block;
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
   }
 
   @media (max-width: 480px) {
@@ -226,8 +210,6 @@
   .popup img { width: 92px; height: 92px; margin-bottom: 10px; }
   .popup h2 { font-size: 19px; }
   .popup p { font-size: 14px; }
-  .loading-animation { width: 112px; height: 112px; }
-
   @media (min-width: 481px) {
     .page { border-radius: 0; }
     .content { margin-top: 48px; }
@@ -320,7 +302,6 @@
       popup.classList.add('show');
       window.setTimeout(() => {
         popup.classList.remove('show');
-        document.getElementById('loading-screen').classList.add('show');
       }, 1800);
     } catch (error) {
       popupTitle.textContent = 'Tidak terkirim';
